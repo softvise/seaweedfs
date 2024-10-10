@@ -333,11 +333,11 @@ func GetActions(policy *PolicyDocument) (actions []string) {
 				}
 				// Parse my-bucket/shared/*
 				path := strings.Split(res[5], "/")
-				if len(path) != 2 || path[1] != "*" {
+				if len(path) < 2 || path[len(path) - 1] != "*" {
 					glog.Infof("not match bucket: %s", path)
 					continue
 				}
-				actions = append(actions, fmt.Sprintf("%s:%s", statementAction, path[0]))
+				actions = append(actions, fmt.Sprintf("%s:%s", statementAction, res[5]))
 			}
 		}
 	}
